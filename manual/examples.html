@@ -161,7 +161,7 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pytorch.html">PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pytorch.html">tiny_dpcpp_nn_pybind Module Documentation</a></li>
 </ul>
 
 </div>
@@ -199,13 +199,60 @@
           <section id="benchmarks">
 <h1>Benchmarks<a class="headerlink" href="#benchmarks" title="Link to this heading">#</a></h1>
 <p>We include several benchmarks in the reposity for the Inference and the Training in the
-benchmark directory. Note that the benchmarks only include minimal tests to ensure correctness of the results.
+<code class="docutils literal notranslate"><span class="pre">benchmark</span></code> directory. Note that the benchmarks only include minimal tests to ensure correctness of the results.
 Correctness tests are part of the unit tests, which can be found in the test directory.</p>
 <p>Running the tests requires either a PVC GPU in the computer system (if built with -DTARGET_DEVICE=”PVC”)
 or an ARC GPU (-DTARGET_DEVICE=”ARC”).</p>
+<p>The benchmark <code class="docutils literal notranslate"><span class="pre">benchmarks/benchmark_all.cpp</span></code> focuses on assessing the performance of training and inference across different use cases, such as NeRFs, PINNs, and Image Compression using tiny-dpcpp-nn. The C++ benchmark script comprises of multiple configurations to run on specific batch sizes and iterations, involving MPI to distribute computational workloads efficiently.</p>
+<p>In addition to general benchmarks, the code targets specialized use cases including:</p>
+<ul class="simple">
+<li><p>Large neural networks with a high count of hidden layers</p></li>
+<li><p>Neural networks tailored for image compression tasks</p></li>
+<li><p>Physics-Informed Neural Networks (PINNs), which incorporate domain knowledge on underlying physical laws into their structure</p></li>
+<li><p>Neural Radiance Fields (NeRF), that model the volumetric scene function for novel view synthesis</p></li>
+</ul>
 </section>
 <section id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h1>
+<p>The examples located in the <code class="docutils literal notranslate"><span class="pre">python/tests</span></code> directory demonstrate usage scenarios and tests for validating the PyTorch extensions and functionalities for neural network training and inference with the <code class="docutils literal notranslate"><span class="pre">tiny_dpcpp_nn_pybind</span></code> module.</p>
+<section id="gradient-descent-test-script">
+<h2>Gradient Descent Test Script<a class="headerlink" href="#gradient-descent-test-script" title="Link to this heading">#</a></h2>
+<p>The gradient descent test script <code class="docutils literal notranslate"><span class="pre">python/tests/test_train.py</span></code> performs a simple check on gradient computations by comparing the gradients derived from two different model instantiations under multiple configurations. Utilizing features like custom loss functions and parameterized test inputs via PyTest, it validates against an assortment of model sizes, activation functions, and output functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This script includes functions to perform gradient testing using parametrized configurations</span>
+<span class="c1"># with support for different layers, activation functions, and batch sizes.</span>
+
+<span class="c1"># The key components of this script include:</span>
+<span class="c1"># - CustomMSELoss: A sample MSE loss function implementation.</span>
+<span class="c1"># - train_model: The function that conducts the training process given a model and data.</span>
+<span class="c1"># - test_grad: A test function decorated with PyTest&#39;s parametrize decorator to test gradients.</span>
+</pre></div>
+</div>
+</section>
+<section id="model-training-and-evaluation-script">
+<h2>Model Training and Evaluation Script<a class="headerlink" href="#model-training-and-evaluation-script" title="Link to this heading">#</a></h2>
+<p>This script <code class="docutils literal notranslate"><span class="pre">python/tests/test_compare_torch_dpcpp.py</span></code> showcases a model training process on a synthetic dataset with gradient checking. It highlights the setup of a DataLoader, loss function, optimizer choice, and embedding of a custom optimizer if needed. During training, the developed model attempts to approximate a simple linear function, and the results are visualized and compared with the ground truth.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The key operations in this script include:</span>
+<span class="c1"># - Generating a random dataset.</span>
+<span class="c1"># - Setting up a DataLoader for batch processing.</span>
+<span class="c1"># - Training the network on the dataset using either Adam or a custom SGD optimizer.</span>
+<span class="c1"># - Reporting model parameter and output differences between models trained on different devices.</span>
+<span class="c1"># - Visualizing the loss over epochs and plotting the learned function against the true function.</span>
+</pre></div>
+</div>
+</section>
+<section id="image-learning-with-pytorch-extensions-script">
+<h2>Image Learning with PyTorch Extensions Script<a class="headerlink" href="#image-learning-with-pytorch-extensions-script" title="Link to this heading">#</a></h2>
+<p>The script <code class="docutils literal notranslate"><span class="pre">python/mlp_learning_an_image_pytorch.py</span></code> demonstrates the adaptation of an image learning example using the PyTorch extension. It closely replicates the behavior of a CUDA sample and provides insights into how tiny-cuda-nn’s PyTorch extension can be leveraged to train a multi-layer perceptron (MLP) to match an input image.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The script performs operations such as:</span>
+<span class="c1"># - Using an Image loader class for image data handling.</span>
+<span class="c1"># - Setting up a model with input encoding and a network using tiny-cuda-nn&#39;s PyTorch extension.</span>
+<span class="c1"># - Optimization loop with Adam, along with saving intermediate output images at specified steps.</span>
+<span class="c1"># - Profiling the training runtime with performance metrics.</span>
+</pre></div>
+</div>
+<p>Each script provides a practical insight into using the PyTorch bindings with considerations for batch processing, parameter tuning, loss function choices, and utilizing accelerated compute resources. They also serve as tests to verify the correct integration and functioning of the PyTorch extensions.</p>
+<p>Additionally, users interested in the Neural Radiance Fields (NeRF) application can refer to examples that use tiny-cuda-nn, showcasing how to accelerate NeRF training and inference with GPU support.</p>
+</section>
 </section>
 
         </article>

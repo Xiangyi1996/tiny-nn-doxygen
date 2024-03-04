@@ -161,7 +161,7 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pytorch.html">PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pytorch.html">tiny_dpcpp_nn_pybind Module Documentation</a></li>
 </ul>
 
 </div>
@@ -198,45 +198,61 @@
         <article role="main">
           <section id="encodings">
 <h1>Encodings<a class="headerlink" href="#encodings" title="Link to this heading">#</a></h1>
-<p>This documentation provides an overview of different encoding strategies, including Grid Encoding, Identity Encoding, and Spherical Harmonics Encoding. Please note, that other Encodings are currently not supported.</p>
+<p>This documentation provides an overview of different encoding strategies, including Grid Encoding, Identity Encoding, and Spherical Harmonics Encoding. Please note that other Encodings are currently not supported.</p>
 <section id="identity-encoding">
 <h2>Identity Encoding<a class="headerlink" href="#identity-encoding" title="Link to this heading">#</a></h2>
 <p>Identity Encoding is a straightforward method that retains the original value of each input dimension, with an optional scale and offset adjustment. This encoding is advantageous when inputs do not necessitate alteration.</p>
-<p>JSON Configuration for Identity Encoding:
-.. code-block:: json
-{
-“otype”: “Identity”,
+<p>JSON Configuration for Identity Encoding:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">json</span>
+</pre></div>
+</div>
+<blockquote>
+<div><dl class="simple">
+<dt>{</dt><dd><p>“otype”: “Identity”,
 “scale”: 1.0,
-“offset”: 0.0
-}</p>
+“offset”: 0.0</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
 </section>
 <section id="spherical-harmonics-encoding">
 <h2>Spherical Harmonics Encoding<a class="headerlink" href="#spherical-harmonics-encoding" title="Link to this heading">#</a></h2>
 <p>Spherical Harmonics Encoding optimizes 3D direction vectors, normalizing them into the unit cube. This frequency-space encoding offers a more efficient means of representing 3D data compared to component-wise encodings like Frequency or TriangleWave, particularly in capturing directional information.</p>
-<p>JSON Configuration for Spherical Harmonics Encoding:
-.. code-block:: json
-{
-“otype”: “SphericalHarmonics”,
-“degree”: 4
-}</p>
+<p>JSON Configuration for Spherical Harmonics Encoding:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">json</span>
+</pre></div>
+</div>
+<blockquote>
+<div><dl class="simple">
+<dt>{</dt><dd><p>“otype”: “SphericalHarmonics”,
+“degree”: 4</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
 </section>
 <section id="grid-encoding">
 <h2>Grid Encoding<a class="headerlink" href="#grid-encoding" title="Link to this heading">#</a></h2>
-<p>Grid Encoding employs a trainable, multiresolution approach suitable for Instant Neural Graphics Primitives [Müller et al. 2022]](<a class="reference external" href="https://nvlabs.github.io/instant-ngp/">https://nvlabs.github.io/instant-ngp/</a>). It allows for several backing storage methods: hashtable-backed (Hash), densely stored (Dense), or tiled storage (Tiled). The encoding’s dimensionality is a product of the number of levels and features per level. Interpolation methods like Nearest, Linear, or Smoothstep determine the blending of neighboring features.</p>
+<p>Grid Encoding employs a trainable, multiresolution approach suitable for Instant Neural Graphics Primitives (<a class="reference external" href="https://nvlabs.github.io/instant-ngp/">Müller et al. 2022</a>). It allows for several backing storage methods: hashtable-backed (Hash), densely stored (Dense), or tiled storage (Tiled). The encoding’s dimensionality is a product of the number of levels and features per level. Interpolation methods like Nearest, Linear, or Smoothstep determine the blending of neighboring features.</p>
 <p>JSON Configuration for Grid Encoding:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">json</span>
 </pre></div>
 </div>
-<p>{
-“otype”: “Grid”,
+<blockquote>
+<div><dl class="simple">
+<dt>{</dt><dd><p>“otype”: “Grid”,
 “type”: “Hash”,
 “n_levels”: 16,
 “n_features_per_level”: 2,
 “log2_hashmap_size”: 19,
 “base_resolution”: 16,
 “per_level_scale”: 2.0,
-“interpolation”: “Linear”
-}</p>
+“interpolation”: “Linear”</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
 </section>
 </section>
 

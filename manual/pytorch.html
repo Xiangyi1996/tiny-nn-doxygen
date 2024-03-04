@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="&lt;no title&gt;" href="../api/index.html" /><link rel="prev" title="Contributing" href="contributing.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
-        <title>PyTorch - tiny-dpcpp-nn documentation</title>
+        <title>tiny_dpcpp_nn_pybind Module Documentation - tiny-dpcpp-nn documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -161,7 +161,7 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">PyTorch</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">tiny_dpcpp_nn_pybind Module Documentation</a></li>
 </ul>
 
 </div>
@@ -196,13 +196,80 @@
           </label>
         </div>
         <article role="main">
-          <section id="pytorch">
-<h1>PyTorch<a class="headerlink" href="#pytorch" title="Link to this heading">#</a></h1>
-<section id="building">
-<h2>Building<a class="headerlink" href="#building" title="Link to this heading">#</a></h2>
+          <section id="tiny-dpcpp-nn-pybind-module-documentation">
+<h1>tiny_dpcpp_nn_pybind Module Documentation<a class="headerlink" href="#tiny-dpcpp-nn-pybind-module-documentation" title="Link to this heading">#</a></h1>
+<p>This documentation provides guidance for the usage and development of the
+<code class="docutils literal notranslate"><span class="pre">tiny_dpcpp_nn_pybind</span></code> module. This Python module is built with pybind11 and
+CMake, offering Python bindings for a C++ extension. It is built using <a class="reference external" href="https://intel.github.io/intel-extension-for-pytorch/xpu/latest/tutorials/examples.html#c">IPEX’ PyTorch C++ Library</a>.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>To build and install the <code class="docutils literal notranslate"><span class="pre">tiny_dpcpp_nn_pybind</span></code> module, ensure that you have
+Python 3.9 or 3.10 installed on your system. It is recommended to use a Conda
+environment to manage the dependencies and Python versions.</p>
+<section id="using-conda">
+<h3>Using Conda<a class="headerlink" href="#using-conda" title="Link to this heading">#</a></h3>
+<p>Install Conda if it is not already installed, and create a new environment with
+Python 3.9 or 3.10:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>tinydpcpp_nn<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10
+conda<span class="w"> </span>activate<span class="w"> </span>tinydpcpp_nn
+</pre></div>
+</div>
+<p>With the Conda environment activated, you can proceed to install the module.</p>
+</section>
+<section id="installing-intel-extension-for-pytorch-ipex">
+<h3>Installing Intel Extension for PyTorch (IPEX)<a class="headerlink" href="#installing-intel-extension-for-pytorch-ipex" title="Link to this heading">#</a></h3>
+<p>For XPU related operations, Intel Extension for PyTorch (IPEX) is required. Run the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.0.1a0<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.15.2a0<span class="w"> </span>intel-extension-for-pytorch<span class="o">==</span><span class="m">2</span>.0.120+xpu<span class="w"> </span>--extra-index-url<span class="w"> </span>https://pytorch-extension.intel.com/release-whl-aitools/
+</pre></div>
+</div>
+<p>Make sure the Conda environment is active when you install IPEX to ensure it is
+available within the environment. Other versions and further installation details can be found in the <a class="reference external" href="https://intel.github.io/intel-extension-for-pytorch/index.html#installation">IPEX documentation</a>.</p>
+</section>
+<section id="installing-the-module">
+<h3>Installing the Module<a class="headerlink" href="#installing-the-module" title="Link to this heading">#</a></h3>
+<p>Clone the repository and navigate to the root directory of the module. Then, install
+the module in editable mode using pip:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>dpcpp_bindings
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<p>After installation, the <code class="docutils literal notranslate"><span class="pre">tiny_dpcpp_nn_pybind</span></code> module can be imported into your
+Python projects and scripts. For convenience, a wrapper module is provided named <code class="docutils literal notranslate"><span class="pre">tiny_dpcpp_nn</span></code> (see <code class="docutils literal notranslate"><span class="pre">dpcpp_bindings/modules.py</span></code>).</p>
+<section id="example-usage">
+<h3>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading">#</a></h3>
+<p>An example of creating a model with the module might look as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tiny_dpcpp_nn</span> <span class="k">as</span> <span class="nn">tcnn</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">n_input_dims</span> <span class="o">=</span> <span class="mi">3</span>   <span class="c1"># Example number of input dimensions</span>
+<span class="n">n_output_dims</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Example number of output dimensions</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;otype&quot;</span><span class="p">:</span> <span class="s2">&quot;Identity&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;n_dims_to_encode&quot;</span><span class="p">:</span> <span class="n">n_input_dims</span><span class="p">,</span>
+        <span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">}</span>
+
+<span class="c1"># Option 1: efficient Encoding+Network combo.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">tcnn</span><span class="o">.</span><span class="n">NetworkWithInputEncoding</span><span class="p">(</span>
+    <span class="n">n_input_dims</span><span class="p">,</span> <span class="n">n_output_dims</span><span class="p">,</span>
+    <span class="n">config</span><span class="p">[</span><span class="s2">&quot;encoding&quot;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Option 2: separate modules. Slower but more flexible.</span>
+<span class="n">encoding</span> <span class="o">=</span> <span class="n">tcnn</span><span class="o">.</span><span class="n">Encoding</span><span class="p">(</span><span class="n">n_input_dims</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;encoding&quot;</span><span class="p">])</span>
+<span class="n">network</span> <span class="o">=</span> <span class="n">tcnn</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">encoding</span><span class="o">.</span><span class="n">n_output_dims</span><span class="p">,</span> <span class="n">n_output_dims</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">])</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">network</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Refer to sample usage patterns and configurations provided in the bundled
+examples, such as <code class="docutils literal notranslate"><span class="pre">samples/mlp_learning_an_image_pytorch.py</span></code>.</p>
+</section>
 </section>
 </section>
 
@@ -261,9 +328,17 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">PyTorch</a><ul>
-<li><a class="reference internal" href="#building">Building</a></li>
-<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#">tiny_dpcpp_nn_pybind Module Documentation</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#using-conda">Using Conda</a></li>
+<li><a class="reference internal" href="#installing-intel-extension-for-pytorch-ipex">Installing Intel Extension for PyTorch (IPEX)</a></li>
+<li><a class="reference internal" href="#installing-the-module">Installing the Module</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#example-usage">Example Usage</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
