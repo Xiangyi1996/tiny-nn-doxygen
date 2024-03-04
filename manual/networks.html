@@ -2,12 +2,12 @@
 <html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Encodings" href="encodings.html" /><link rel="prev" title="Building and linking" href="build.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>Network - tiny-dpcpp-nn documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -158,7 +158,8 @@
 <li class="toctree-l1"><a class="reference internal" href="build.html">Building and linking</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encodings.html">Encodings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pytorch.html">PyTorch</a></li>
 </ul>
@@ -197,14 +198,29 @@
         <article role="main">
           <section id="network">
 <h1>Network<a class="headerlink" href="#network" title="Link to this heading">#</a></h1>
+<p>Tiny-dpcpp-nn is an implementation of multi-layer perceptrions (MLPs) for Intel GPUs.
+In particular, this implementation focuses on MLPs with constant, small power of 2
+network widths (16, 32, 64, 128) and aims to maximize the performance of inference and
+training by fusing the requisite matrix operations in the separate layers into a single
+operation.</p>
 <section id="multi-layer-perceptrons">
 <h2>Multi-Layer Perceptrons<a class="headerlink" href="#multi-layer-perceptrons" title="Link to this heading">#</a></h2>
 </section>
 <section id="fused-mlps">
 <h2>Fused MLPs<a class="headerlink" href="#fused-mlps" title="Link to this heading">#</a></h2>
+<p>As indicate above, Fused MLPs fuse the matrix operations of several layers into a single
+operation. In general, this decreases the number of global memory access and thus increases
+the arithmetic intensity and performance.
+Especially Inference benefits from this since the load of the input of each layer and the store
+of the output of each layer can be reduced to a single load of the input to the network
+and a single store of the output of the network.</p>
 </section>
 <section id="esimd-kernels">
 <h2>ESIMD Kernels<a class="headerlink" href="#esimd-kernels" title="Link to this heading">#</a></h2>
+<p>The fused forward pass and the backward pass are implemented in Intel’s ESIMD SYCL extension.
+They can be found in include/network/kernel_esimd.h in the functions forward_impl_general and
+backward_impl, respectively. The forward_impl_general is templated and re-used for the forward
+pass required as part of the training of the network as well as the Inference.</p>
 </section>
 </section>
 

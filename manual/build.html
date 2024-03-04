@@ -2,12 +2,12 @@
 <html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Network" href="networks.html" /><link rel="prev" title="&lt;no title&gt;" href="index.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>Building and linking - tiny-dpcpp-nn documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -158,7 +158,8 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Building and linking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encodings.html">Encodings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pytorch.html">PyTorch</a></li>
 </ul>
@@ -205,7 +206,7 @@ is sufficent to compile the library.</p>
 <p>In particular, the project depends on:</p>
 <ul class="simple">
 <li><p>CMake &gt;= 3.23</p></li>
-<li><p>Intel C++ compiler, icpx</p></li>
+<li><p>Intel C++ compiler, icpx. Tested with version 2024.0</p></li>
 <li><p>Intel MPI</p></li>
 <li><p>Intel oneMKL</p></li>
 <li><p>Intel DPCT</p></li>
@@ -214,7 +215,7 @@ is sufficent to compile the library.</p>
 <section id="build-from-source-using-oneapi">
 <h2>Build from source using oneAPI<a class="headerlink" href="#build-from-source-using-oneapi" title="Link to this heading">#</a></h2>
 <p>Clone the repository.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone ...</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone PATH</span>
 </pre></div>
 </div>
 <p>Initialize the oneAPI environment.</p>
@@ -260,9 +261,31 @@ To toggle them ON or OFF, set -D&lt;option&gt;=ON or OFF to cmake.</p>
 <td><p>Download reference data and build tests using it</p></td>
 <td><p>OFF</p></td>
 </tr>
-<tr class="row-odd"><td><p>BUILD_PYBIND</p></td>
+<tr class="row-odd"><td><p>BUILD_BWD_TEST</p></td>
+<td><p>Compare our backward pass to an Eigen based code</p></td>
+<td><p>OFF</p></td>
+</tr>
+<tr class="row-even"><td><p>BUILD_PYBIND</p></td>
 <td><p>Build Python bindings for, e.g., PyTorch</p></td>
 <td><p>OFF</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The following options enable further customization. To set them,
+use -D&lt;option&gt;=&lt;value&gt;</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TARGET_DEVICE</p></td>
+<td><p>Build code either for “ARC” or “PVC”</p></td>
+<td><p>“PVC”, “ARC”</p></td>
 </tr>
 </tbody>
 </table>

@@ -2,12 +2,12 @@
 <html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="PyTorch" href="pytorch.html" /><link rel="prev" title="Examples" href="examples.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="PyTorch" href="pytorch.html" /><link rel="prev" title="Benchmarks" href="examples.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>Contributing - tiny-dpcpp-nn documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -158,7 +158,8 @@
 <li class="toctree-l1"><a class="reference internal" href="build.html">Building and linking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encodings.html">Encodings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#examples">Examples</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pytorch.html">PyTorch</a></li>
 </ul>
@@ -208,22 +209,21 @@
 - include: All the header files for this project. Most of the code is contained in the headers since it heavily relies on template classes and functions.
 - python: Python code. This will be removed in the future.
 - source: Contains all the .cpp files of the tiny-dpcpp-nn code.
-- test: Directory which contains all of the doctest unitest.</p>
+- test: Directory which contains all of the doctest unit-test.</p>
 </section>
 <section id="structure-of-tiny-dpcpp-nn-include">
 <h2>Structure of tiny-dpcpp-nn/include<a class="headerlink" href="#structure-of-tiny-dpcpp-nn-include" title="Link to this heading">#</a></h2>
 <p>The most important parts of the code as of version 0.1 are contained in include/common, include/encodings and include/network.</p>
-<p>The common directory contains small helper functions as well as the containers wrapping device memory,
+<p>The include/common directory contains small helper functions as well as the containers wrapping device memory,
 namely the classes DeviceMem, DeviceMatrix, and DeviceMatrices, as well as the view classes DeviceMatrixView and DeviceMatricesView.
-These latter two classes may be used in device kernels, whereas the classes DeviceMem, DeviceMatrix, and DeviceMatrices are only usable on</p>
-<blockquote>
-<div><p>the host.</p>
-</div></blockquote>
+These latter two classes may be used in device kernels, whereas the classes DeviceMem, DeviceMatrix, and DeviceMatrices are only usable on the host.</p>
 <p>The include/encodings directory contains all the available encodings, namely Identity, SphericalHarmonics and Grid. These
 encodings may be used to pad the input data to the required width before running inference or training.</p>
+<p>Different loss functions are implemented in include/losses. They are all derived from on abstract loss base class which is defined in include/losses/loss.h</p>
 <p>The include/network directory contains the actual network implementation called SwiftNetMLP. The relevant GPU kernels which facilitate
 the actual training and inference can be found in kernel_* files. As of version 0.1, we only support an esimd verison which can be found in kernel_esimd.h
 The class network_with_encodings wraps a network and an ecoding in a single object. At some point in the future, this should be consolidated.</p>
+<p>Several optimization algorithms for training may be found in include/optmizers. As of version 0.1, they are not yet implemented.</p>
 </section>
 </section>
 
@@ -248,7 +248,7 @@ The class network_with_encodings wraps a network and an ecoding in a single obje
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Examples</div>
+                <div class="title">Benchmarks</div>
                 
               </div>
             </a>
