@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="../">
+<html class="no-js" lang="en" data-content_root="">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Benchmarks" href="examples.html" /><link rel="prev" title="Network" href="networks.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
         <title>Encodings - tiny-dpcpp-nn documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
@@ -197,10 +197,10 @@
         </div>
         <article role="main">
           <section id="encodings">
-<h1>Encodings<a class="headerlink" href="#encodings" title="Link to this heading">#</a></h1>
+<h1>Encodings<a class="headerlink" href="#encodings" title="Permalink to this heading">#</a></h1>
 <p>This documentation provides an overview of different encoding strategies, including Grid Encoding, Identity Encoding, and Spherical Harmonics Encoding. Please note that other Encodings are currently not supported.</p>
 <section id="identity-encoding">
-<h2>Identity Encoding<a class="headerlink" href="#identity-encoding" title="Link to this heading">#</a></h2>
+<h2>Identity Encoding<a class="headerlink" href="#identity-encoding" title="Permalink to this heading">#</a></h2>
 <p>Identity Encoding is a straightforward method that retains the original value of each input dimension, with an optional scale and offset adjustment. This encoding is advantageous when inputs do not necessitate alteration.</p>
 <p>JSON Configuration for Identity Encoding:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">json</span>
@@ -217,7 +217,7 @@
 </div></blockquote>
 </section>
 <section id="spherical-harmonics-encoding">
-<h2>Spherical Harmonics Encoding<a class="headerlink" href="#spherical-harmonics-encoding" title="Link to this heading">#</a></h2>
+<h2>Spherical Harmonics Encoding<a class="headerlink" href="#spherical-harmonics-encoding" title="Permalink to this heading">#</a></h2>
 <p>Spherical Harmonics Encoding optimizes 3D direction vectors, normalizing them into the unit cube. This frequency-space encoding offers a more efficient means of representing 3D data compared to component-wise encodings like Frequency or TriangleWave, particularly in capturing directional information.</p>
 <p>JSON Configuration for Spherical Harmonics Encoding:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">json</span>
@@ -233,7 +233,7 @@
 </div></blockquote>
 </section>
 <section id="grid-encoding">
-<h2>Grid Encoding<a class="headerlink" href="#grid-encoding" title="Link to this heading">#</a></h2>
+<h2>Grid Encoding<a class="headerlink" href="#grid-encoding" title="Permalink to this heading">#</a></h2>
 <p>Grid Encoding employs a trainable, multiresolution approach suitable for Instant Neural Graphics Primitives (<a class="reference external" href="https://nvlabs.github.io/instant-ngp/">Müller et al. 2022</a>). It allows for several backing storage methods: hashtable-backed (Hash), densely stored (Dense), or tiled storage (Tiled). The encoding’s dimensionality is a product of the number of levels and features per level. Interpolation methods like Nearest, Linear, or Smoothstep determine the blending of neighboring features.</p>
 <p>JSON Configuration for Grid Encoding:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">json</span>
@@ -326,9 +326,9 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     </body>
 </html>
